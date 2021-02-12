@@ -28,13 +28,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text('Voting Panel')),
       body: _buildBody(context),
     );
   }
+
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('candidate').snapshots(),
@@ -65,10 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: ListTile(
-          title: Text(record.name),
-          trailing: Text(record.votes.toString()),
-            onTap: () => print(record),
-        ),
+            title: Text(record.name),
+            trailing: Text(record.votes.toString()),
+            onTap: () =>
+                record.reference.updateData({'votes': record.votes + 1})),
       ),
     );
   }
